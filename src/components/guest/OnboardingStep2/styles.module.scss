@@ -1,0 +1,287 @@
+@use '@/styles/variables' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background: $color-bg;
+  padding-top: env(safe-area-inset-top);
+}
+
+.header {
+  padding: $space-6 $space-6 $space-4;
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: $radius-full;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  color: $color-text-primary;
+  font-size: $font-size-lg;
+}
+
+.greeting {
+  font-size: $font-size-md;
+  font-weight: 600;
+}
+
+.profileSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $space-8 $space-6;
+  gap: $space-4;
+}
+
+.avatarWrapper {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  cursor: pointer;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: $radius-full;
+  background: $color-surface;
+  border: 2px solid $color-border;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: border-color $transition-fast;
+
+  &:hover {
+    border-color: $color-accent;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.avatarInitials {
+  font-size: $font-size-3xl;
+  font-weight: 700;
+  color: $color-accent;
+}
+
+.avatarOverlay {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  background: $color-accent;
+  border-radius: $radius-full;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-md;
+  border: 2px solid $color-bg;
+}
+
+.photoHint {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  text-align: center;
+}
+
+.guestName {
+  font-size: $font-size-xl;
+  font-weight: 700;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  padding: $space-4 $space-6;
+  padding-bottom: max($space-8, env(safe-area-inset-bottom));
+}
+
+.primaryAction {
+  width: 100%;
+  padding: $space-5 $space-6;
+  background: $color-accent;
+  color: #fff;
+  font-size: $font-size-md;
+  font-weight: 600;
+  border-radius: $radius-xl;
+  border: none;
+  cursor: pointer;
+  transition: background $transition-fast, transform $transition-fast;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-3;
+
+  &:active {
+    background: $color-accent-hover;
+    transform: scale(0.98);
+  }
+}
+
+.secondaryAction {
+  width: 100%;
+  padding: $space-5 $space-6;
+  background: $color-surface;
+  color: $color-text-primary;
+  font-size: $font-size-md;
+  font-weight: 600;
+  border-radius: $radius-xl;
+  border: 1.5px solid $color-border;
+  cursor: pointer;
+  transition: border-color $transition-fast, background $transition-fast;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-3;
+
+  &:active {
+    border-color: $color-accent;
+    background: $color-surface-raised;
+  }
+}
+
+// Poke sheet
+.pokeSheetOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: $z-modal;
+  display: flex;
+  align-items: flex-end;
+}
+
+.pokeSheet {
+  width: 100%;
+  background: $color-surface;
+  border-radius: $radius-xl $radius-xl 0 0;
+  padding-bottom: env(safe-area-inset-bottom);
+  max-height: 70dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.pokeSheetHandle {
+  width: 36px;
+  height: 4px;
+  background: $color-border;
+  border-radius: $radius-full;
+  margin: $space-3 auto;
+}
+
+.pokeSheetTitle {
+  font-size: $font-size-md;
+  font-weight: 600;
+  padding: $space-3 $space-6 $space-4;
+}
+
+.pokeList {
+  overflow-y: auto;
+  padding: 0 $space-4 $space-4;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.pokeItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $space-4;
+  background: $color-surface-raised;
+  border-radius: $radius-md;
+  border: 1px solid $color-border;
+}
+
+.pokeGuestInfo {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+}
+
+.pokeGuestAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: $radius-full;
+  background: $color-bg;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-base;
+  font-weight: 600;
+  color: $color-accent;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.pokeGuestName {
+  font-size: $font-size-base;
+  font-weight: 500;
+}
+
+.pokeButton {
+  font-size: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform $transition-fast;
+
+  &:active {
+    transform: rotate(15deg) scale(1.2);
+  }
+}
+
+// Poke received toast
+.pokeToast {
+  position: fixed;
+  top: max($space-6, env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-xl;
+  padding: $space-4 $space-6;
+  z-index: $z-toast;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-2;
+  box-shadow: $shadow-lg;
+  animation: slideDown 0.3s ease;
+  min-width: 240px;
+  text-align: center;
+}
+
+@keyframes slideDown {
+  from { transform: translateX(-50%) translateY(-20px); opacity: 0; }
+  to { transform: translateX(-50%) translateY(0); opacity: 1; }
+}
+
+.pokeToastEmoji {
+  font-size: 32px;
+}
+
+.pokeToastText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}

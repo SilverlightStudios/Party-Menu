@@ -1,0 +1,94 @@
+@use '@/styles/variables' as *;
+
+.shell {
+  display: flex;
+  min-height: 100dvh;
+  background: $color-bg;
+}
+
+.sidebar {
+  width: 240px;
+  background: $color-surface;
+  border-right: 1px solid $color-border;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100dvh;
+  overflow-y: auto;
+
+  @media (max-width: $bp-md) {
+    width: 64px;
+  }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-6 $space-5;
+  border-bottom: 1px solid $color-border;
+}
+
+.brandEmoji {
+  font-size: $font-size-xl;
+  flex-shrink: 0;
+}
+
+.brandName {
+  font-size: $font-size-base;
+  font-weight: 700;
+
+  @media (max-width: $bp-md) {
+    display: none;
+  }
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  padding: $space-4 $space-3;
+  gap: $space-1;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-3 $space-3;
+  border-radius: $radius-md;
+  color: $color-text-secondary;
+  font-size: $font-size-sm;
+  font-weight: 500;
+  transition: background $transition-fast, color $transition-fast;
+  text-decoration: none;
+
+  &:hover {
+    background: $color-surface-raised;
+    color: $color-text-primary;
+  }
+}
+
+.navEmoji {
+  font-size: $font-size-md;
+  flex-shrink: 0;
+  width: 24px;
+  text-align: center;
+}
+
+.navLabel {
+  @media (max-width: $bp-md) {
+    display: none;
+  }
+}
+
+.main {
+  flex: 1;
+  overflow-y: auto;
+  padding: $space-8;
+
+  @media (max-width: $bp-md) {
+    padding: $space-4;
+  }
+}

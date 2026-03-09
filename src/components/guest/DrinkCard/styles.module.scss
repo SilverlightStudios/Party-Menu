@@ -1,0 +1,59 @@
+@use '@/styles/variables' as *;
+
+.card {
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform $transition-fast, border-color $transition-fast;
+  -webkit-tap-highlight-color: transparent;
+
+  &:active {
+    transform: scale(0.97);
+    border-color: $color-accent;
+  }
+}
+
+.imageWrapper {
+  aspect-ratio: 4 / 3;
+  background: $color-surface-raised;
+  overflow: hidden;
+  position: relative;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+}
+
+.info {
+  padding: $space-3 $space-4 $space-4;
+}
+
+.name {
+  font-size: $font-size-base;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.description {
+  margin-top: $space-1;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

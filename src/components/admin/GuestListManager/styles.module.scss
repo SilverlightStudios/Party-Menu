@@ -1,0 +1,177 @@
+@use '@/styles/variables' as *;
+
+.page {
+  max-width: 600px;
+}
+
+.header {
+  margin-bottom: $space-8;
+}
+
+.title {
+  font-size: $font-size-2xl;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  margin-top: $space-2;
+}
+
+.addSection {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+  margin-bottom: $space-6;
+}
+
+.addRow {
+  display: flex;
+  gap: $space-3;
+}
+
+.input {
+  flex: 1;
+  padding: $space-3 $space-4;
+  background: $color-surface;
+  border: 1.5px solid $color-border;
+  border-radius: $radius-md;
+  color: $color-text-primary;
+  font-size: $font-size-base;
+  outline: none;
+
+  &:focus {
+    border-color: $color-accent;
+  }
+
+  &::placeholder {
+    color: $color-text-secondary;
+  }
+}
+
+.textarea {
+  width: 100%;
+  padding: $space-3 $space-4;
+  background: $color-surface;
+  border: 1.5px solid $color-border;
+  border-radius: $radius-md;
+  color: $color-text-primary;
+  font-size: $font-size-base;
+  outline: none;
+  resize: vertical;
+  font-family: inherit;
+
+  &:focus {
+    border-color: $color-accent;
+  }
+}
+
+.addBtn {
+  padding: $space-3 $space-5;
+  background: $color-accent;
+  color: #fff;
+  font-size: $font-size-base;
+  font-weight: 600;
+  border: none;
+  border-radius: $radius-md;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+.bulkToggle {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+
+  &:hover {
+    color: $color-accent;
+  }
+}
+
+.bulkArea {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.guestRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $space-3 $space-4;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+}
+
+.guestInfo {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: $radius-full;
+  object-fit: cover;
+}
+
+.guestName {
+  font-size: $font-size-base;
+  font-weight: 500;
+}
+
+.removeBtn {
+  width: 28px;
+  height: 28px;
+  border-radius: $radius-full;
+  background: $color-surface-raised;
+  border: 1px solid $color-border;
+  color: $color-text-secondary;
+  font-size: $font-size-sm;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: rgba($color-accent, 0.15);
+    border-color: $color-accent;
+    color: $color-accent;
+  }
+}
+
+.emptyText {
+  color: $color-text-secondary;
+  font-size: $font-size-sm;
+  padding: $space-4;
+  text-align: center;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  padding: $space-8;
+  color: $color-text-secondary;
+}
+
+.link {
+  color: $color-accent;
+  font-weight: 600;
+}

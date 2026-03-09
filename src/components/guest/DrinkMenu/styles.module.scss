@@ -1,0 +1,197 @@
+@use '@/styles/variables' as *;
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background: $color-bg;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: 100px; // room for sticky footer
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: $z-sticky;
+  background: rgba($color-bg, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: $space-4 $space-6;
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  border-bottom: 1px solid $color-border;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: $radius-full;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  color: $color-text-primary;
+  font-size: $font-size-lg;
+  flex-shrink: 0;
+}
+
+.headerText {
+  flex: 1;
+}
+
+.title {
+  font-size: $font-size-lg;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-4;
+  padding: $space-6 $space-4;
+
+  @media (min-width: 480px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.stickyFooter {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: $space-4 $space-6;
+  padding-bottom: max($space-4, env(safe-area-inset-bottom));
+  background: rgba($color-bg, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid $color-border;
+  z-index: $z-sticky;
+}
+
+.customRequestButton {
+  width: 100%;
+  padding: $space-4 $space-5;
+  background: $color-surface;
+  border: 1.5px dashed $color-border;
+  border-radius: $radius-xl;
+  color: $color-text-secondary;
+  font-size: $font-size-sm;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  cursor: pointer;
+  transition: border-color $transition-fast, color $transition-fast;
+
+  &:active {
+    border-color: $color-accent;
+    color: $color-accent;
+  }
+}
+
+// Order confirmation sheet
+.confirmOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: $z-modal;
+  display: flex;
+  align-items: flex-end;
+}
+
+.confirmSheet {
+  width: 100%;
+  background: $color-surface;
+  border-radius: $radius-xl $radius-xl 0 0;
+  padding: $space-6;
+  padding-bottom: max($space-8, env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+}
+
+.confirmHandle {
+  width: 36px;
+  height: 4px;
+  background: $color-border;
+  border-radius: $radius-full;
+  margin: 0 auto -$space-2;
+}
+
+.confirmDrinkImage {
+  width: 80px;
+  height: 80px;
+  border-radius: $radius-lg;
+  object-fit: cover;
+  background: $color-surface-raised;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.confirmDrinkInfo {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+}
+
+.confirmDrinkName {
+  font-size: $font-size-lg;
+  font-weight: 700;
+}
+
+.confirmDrinkDesc {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  margin-top: $space-1;
+}
+
+.confirmButton {
+  width: 100%;
+  padding: $space-5;
+  background: $color-accent;
+  color: #fff;
+  font-size: $font-size-md;
+  font-weight: 600;
+  border-radius: $radius-xl;
+  border: none;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.6;
+  }
+}
+
+// Order success toast
+.successToast {
+  position: fixed;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: $color-success;
+  color: #fff;
+  padding: $space-3 $space-6;
+  border-radius: $radius-full;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  z-index: $z-toast;
+  white-space: nowrap;
+  animation: fadeInUp 0.25s ease;
+}
+
+@keyframes fadeInUp {
+  from { transform: translateX(-50%) translateY(10px); opacity: 0; }
+  to { transform: translateX(-50%) translateY(0); opacity: 1; }
+}

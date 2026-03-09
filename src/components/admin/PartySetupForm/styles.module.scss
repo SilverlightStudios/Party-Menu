@@ -1,0 +1,147 @@
+@use '@/styles/variables' as *;
+
+.page {
+  max-width: 600px;
+}
+
+.header {
+  margin-bottom: $space-8;
+}
+
+.title {
+  font-size: $font-size-2xl;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  margin-top: $space-2;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.label {
+  font-size: $font-size-sm;
+  font-weight: 600;
+  color: $color-text-secondary;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.input {
+  padding: $space-4;
+  background: $color-surface;
+  border: 1.5px solid $color-border;
+  border-radius: $radius-md;
+  color: $color-text-primary;
+  font-size: $font-size-base;
+  outline: none;
+  transition: border-color $transition-fast;
+
+  &:focus {
+    border-color: $color-accent;
+  }
+
+  &::placeholder {
+    color: $color-text-secondary;
+  }
+}
+
+.hint {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+}
+
+.toggleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $space-4;
+  background: $color-surface;
+  border: 1.5px solid $color-border;
+  border-radius: $radius-md;
+}
+
+.toggleLabel {
+  font-size: $font-size-sm;
+}
+
+.toggle {
+  padding: $space-2 $space-4;
+  border-radius: $radius-full;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+
+  &.toggleOn {
+    background: $color-success;
+    color: #fff;
+  }
+
+  &.toggleOff {
+    background: $color-surface-raised;
+    color: $color-text-secondary;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: $space-3;
+  padding-top: $space-2;
+}
+
+.saveBtn {
+  padding: $space-4 $space-8;
+  background: $color-accent;
+  color: #fff;
+  font-size: $font-size-base;
+  font-weight: 600;
+  border: none;
+  border-radius: $radius-lg;
+  cursor: pointer;
+  transition: background $transition-fast;
+
+  &:hover {
+    background: $color-accent-hover;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+.qrSection {
+  padding: $space-5;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.qrLabel {
+  font-size: $font-size-sm;
+  font-weight: 600;
+  color: $color-text-secondary;
+}
+
+.qrUrl {
+  font-size: $font-size-base;
+  font-weight: 600;
+  color: $color-accent;
+  font-family: monospace;
+  word-break: break-all;
+}
