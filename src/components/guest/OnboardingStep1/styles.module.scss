@@ -1,0 +1,252 @@
+@use '@/styles/variables' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding: $space-8 $space-6;
+  background: $color-bg;
+  position: relative;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-8;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.emoji {
+  font-size: 64px;
+  line-height: 1;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.welcomeMessage {
+  font-size: $font-size-2xl;
+  font-weight: 700;
+  color: $color-text-primary;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: $font-size-base;
+  color: $color-text-secondary;
+  margin-top: -$space-4;
+}
+
+.findButton {
+  width: 100%;
+  padding: $space-5 $space-6;
+  background: $color-accent;
+  color: #fff;
+  font-size: $font-size-md;
+  font-weight: 600;
+  border-radius: $radius-xl;
+  border: none;
+  cursor: pointer;
+  transition: background $transition-fast, transform $transition-fast;
+  -webkit-tap-highlight-color: transparent;
+
+  &:active {
+    background: $color-accent-hover;
+    transform: scale(0.98);
+  }
+}
+
+// Guest selector sheet content
+.sheetContent {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sheetHeader {
+  padding: $space-6 $space-6 $space-4;
+  border-bottom: 1px solid $color-border;
+}
+
+.sheetTitle {
+  font-size: $font-size-lg;
+  font-weight: 600;
+}
+
+.searchInput {
+  width: 100%;
+  padding: $space-3 $space-4;
+  margin-top: $space-4;
+  background: $color-surface-raised;
+  border: 1px solid $color-border;
+  border-radius: $radius-full;
+  color: $color-text-primary;
+  font-size: $font-size-base;
+  outline: none;
+
+  &::placeholder {
+    color: $color-text-secondary;
+  }
+
+  &:focus {
+    border-color: $color-accent;
+  }
+}
+
+.guestList {
+  flex: 1;
+  overflow-y: auto;
+  padding: $space-3 $space-4;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.guestItem {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  padding: $space-4;
+  border-radius: $radius-md;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  cursor: pointer;
+  transition: background $transition-fast, border-color $transition-fast;
+  -webkit-tap-highlight-color: transparent;
+
+  &:active {
+    background: $color-surface-raised;
+    border-color: $color-accent;
+  }
+}
+
+.guestAvatar {
+  width: 44px;
+  height: 44px;
+  border-radius: $radius-full;
+  background: $color-surface-raised;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-lg;
+  font-weight: 600;
+  color: $color-accent;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.guestName {
+  font-size: $font-size-base;
+  font-weight: 500;
+}
+
+.stickyBottom {
+  padding: $space-4 $space-6;
+  padding-bottom: max($space-4, env(safe-area-inset-bottom));
+  border-top: 1px solid $color-border;
+  background: $color-surface;
+}
+
+.addSelfButton {
+  width: 100%;
+  padding: $space-4 $space-5;
+  background: transparent;
+  border: 1.5px solid $color-border;
+  border-radius: $radius-xl;
+  color: $color-text-secondary;
+  font-size: $font-size-sm;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color $transition-fast, color $transition-fast;
+
+  &:active {
+    border-color: $color-accent;
+    color: $color-accent;
+  }
+}
+
+// Add name modal
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: $z-modal;
+  display: flex;
+  align-items: flex-end;
+  padding: $space-4;
+  padding-bottom: max($space-6, env(safe-area-inset-bottom));
+}
+
+.modalCard {
+  width: 100%;
+  background: $color-surface;
+  border-radius: $radius-xl;
+  padding: $space-6;
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.modalTitle {
+  font-size: $font-size-md;
+  font-weight: 600;
+}
+
+.nameInput {
+  width: 100%;
+  padding: $space-4;
+  background: $color-surface-raised;
+  border: 1.5px solid $color-border;
+  border-radius: $radius-md;
+  color: $color-text-primary;
+  font-size: $font-size-base;
+  outline: none;
+
+  &:focus {
+    border-color: $color-accent;
+  }
+}
+
+.modalActions {
+  display: flex;
+  gap: $space-3;
+}
+
+.cancelBtn {
+  flex: 1;
+  padding: $space-4;
+  border: 1.5px solid $color-border;
+  border-radius: $radius-lg;
+  color: $color-text-secondary;
+  font-size: $font-size-base;
+  background: transparent;
+}
+
+.submitBtn {
+  flex: 2;
+  padding: $space-4;
+  background: $color-accent;
+  border-radius: $radius-lg;
+  color: #fff;
+  font-size: $font-size-base;
+  font-weight: 600;
+  border: none;
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
