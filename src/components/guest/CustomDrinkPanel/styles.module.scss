@@ -1,31 +1,13 @@
 @use '@/styles/variables' as *;
+@use '@/styles/glass' as glass;
 
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.75);
-  z-index: $z-modal;
-  display: flex;
-  align-items: flex-end;
-}
-
-.sheet {
-  width: 100%;
-  background: $color-surface;
-  border-radius: $radius-xl $radius-xl 0 0;
+// Content inside Silk sheet
+.content {
   padding: $space-6;
   padding-bottom: max($space-8, env(safe-area-inset-bottom));
   display: flex;
   flex-direction: column;
   gap: $space-5;
-}
-
-.handle {
-  width: 36px;
-  height: 4px;
-  background: $color-border;
-  border-radius: $radius-full;
-  margin: 0 auto -$space-2;
 }
 
 .title {
@@ -42,20 +24,14 @@
 .textarea {
   width: 100%;
   min-height: 100px;
+  @include glass.liquid-glass-input($radius-md);
   padding: $space-4;
-  background: $color-surface-raised;
-  border: 1.5px solid $color-border;
-  border-radius: $radius-md;
   color: $color-text-primary;
   font-family: inherit;
   font-size: $font-size-base;
   resize: none;
   outline: none;
   line-height: 1.5;
-
-  &:focus {
-    border-color: $color-accent;
-  }
 
   &::placeholder {
     color: $color-text-secondary;
@@ -69,27 +45,17 @@
 
 .cancelBtn {
   flex: 1;
+  @include glass.liquid-glass-button($radius-lg);
   padding: $space-4;
-  background: transparent;
-  border: 1.5px solid $color-border;
-  border-radius: $radius-lg;
   color: $color-text-secondary;
   font-size: $font-size-base;
-  cursor: pointer;
 }
 
 .submitBtn {
   flex: 2;
+  @include glass.liquid-glass-button($radius-lg);
   padding: $space-4;
-  background: $color-accent;
-  border: none;
-  border-radius: $radius-lg;
   color: #fff;
   font-size: $font-size-base;
-  font-weight: 600;
-  cursor: pointer;
-
-  &:disabled {
-    opacity: 0.5;
-  }
+  font-weight: 700;
 }

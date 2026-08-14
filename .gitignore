@@ -36,6 +36,11 @@ yarn-error.log*
 # vercel
 .vercel
 
+# local agent/session state and exploratory captures
+.claude/*.local.json
+.claude/launch.json
+/tmp/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

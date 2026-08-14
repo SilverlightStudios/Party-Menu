@@ -1,4 +1,5 @@
 @use '@/styles/variables' as *;
+@use '@/styles/glass' as glass;
 
 .page {
   max-width: 800px;
@@ -13,6 +14,9 @@
 }
 
 .title {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-3;
   font-size: $font-size-2xl;
   font-weight: 700;
 }
@@ -24,21 +28,16 @@
 }
 
 .addBtn {
+  @include glass.liquid-glass-button($radius-md);
   padding: $space-3 $space-5;
-  background: $color-accent;
   color: #fff;
   font-size: $font-size-sm;
-  font-weight: 600;
-  border: none;
-  border-radius: $radius-md;
-  cursor: pointer;
+  font-weight: 700;
   white-space: nowrap;
 }
 
 .formCard {
-  background: $color-surface;
-  border: 1px solid $color-border;
-  border-radius: $radius-lg;
+  @include glass.liquid-glass-panel($radius-lg);
   padding: $space-6;
   margin-bottom: $space-6;
   display: flex;
@@ -59,22 +58,16 @@
 
 .label {
   font-size: $font-size-sm;
-  font-weight: 600;
+  font-weight: 700;
   color: $color-text-secondary;
 }
 
 .input {
+  @include glass.liquid-glass-input($radius-md);
   padding: $space-3 $space-4;
-  background: $color-surface-raised;
-  border: 1.5px solid $color-border;
-  border-radius: $radius-md;
   color: $color-text-primary;
   font-size: $font-size-base;
   outline: none;
-
-  &:focus {
-    border-color: $color-accent;
-  }
 
   &::placeholder {
     color: $color-text-secondary;
@@ -82,19 +75,12 @@
 }
 
 .photoPickerBtn {
+  @include glass.liquid-glass-button($radius-md);
   padding: $space-3 $space-4;
-  background: $color-surface-raised;
-  border: 1.5px dashed $color-border;
-  border-radius: $radius-md;
   color: $color-text-secondary;
   font-size: $font-size-sm;
-  cursor: pointer;
   text-align: left;
-
-  &:hover {
-    border-color: $color-accent;
-    color: $color-accent;
-  }
+  justify-content: flex-start;
 }
 
 .formActions {
@@ -104,28 +90,18 @@
 }
 
 .cancelBtn {
+  @include glass.liquid-glass-button($radius-md);
   padding: $space-3 $space-5;
-  background: transparent;
-  border: 1.5px solid $color-border;
-  border-radius: $radius-md;
   color: $color-text-secondary;
   font-size: $font-size-base;
-  cursor: pointer;
 }
 
 .saveBtn {
+  @include glass.liquid-glass-button($radius-md);
   padding: $space-3 $space-5;
-  background: $color-accent;
   color: #fff;
   font-size: $font-size-base;
-  font-weight: 600;
-  border: none;
-  border-radius: $radius-md;
-  cursor: pointer;
-
-  &:disabled {
-    opacity: 0.5;
-  }
+  font-weight: 700;
 }
 
 .drinkGrid {
@@ -135,11 +111,8 @@
 }
 
 .drinkCard {
-  background: $color-surface;
-  border: 1px solid $color-border;
-  border-radius: $radius-lg;
+  @include glass.liquid-glass-card($radius-lg);
   overflow: hidden;
-  transition: opacity $transition-fast;
 
   &.unavailable {
     opacity: 0.5;
@@ -148,7 +121,7 @@
 
 .drinkImage {
   aspect-ratio: 16 / 9;
-  background: $color-surface-raised;
+  @include glass.liquid-glass-surface(0, 14px, 0.08, 0.12, 0.14);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -168,7 +141,7 @@
 
 .drinkName {
   font-size: $font-size-base;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .drinkDesc {
@@ -185,53 +158,34 @@
 }
 
 .availabilityBtn {
+  @include glass.liquid-glass-button($radius-full);
   padding: $space-1 $space-3;
-  border-radius: $radius-full;
   font-size: $font-size-xs;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
+  font-weight: 700;
 
   &.available {
-    background: rgba($color-success, 0.15);
     color: $color-success;
   }
 
   &.hidden {
-    background: $color-surface-raised;
     color: $color-text-secondary;
   }
 }
 
 .editBtn {
+  @include glass.liquid-glass-button($radius-full);
   padding: $space-1 $space-3;
-  border-radius: $radius-full;
   font-size: $font-size-xs;
-  font-weight: 600;
-  background: $color-surface-raised;
-  border: 1px solid $color-border;
+  font-weight: 700;
   color: $color-text-secondary;
-  cursor: pointer;
   margin-left: auto;
-
-  &:hover {
-    color: $color-text-primary;
-  }
 }
 
 .deleteBtn {
+  @include glass.liquid-glass-button($radius-full);
   padding: $space-1 $space-2;
-  border-radius: $radius-full;
   font-size: $font-size-xs;
-  background: transparent;
-  border: 1px solid $color-border;
   color: $color-text-secondary;
-  cursor: pointer;
-
-  &:hover {
-    border-color: $color-accent;
-    color: $color-accent;
-  }
 }
 
 .emptyText {
@@ -250,5 +204,5 @@
 
 .link {
   color: $color-accent;
-  font-weight: 600;
+  font-weight: 700;
 }

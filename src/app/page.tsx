@@ -1,9 +1,34 @@
+import { redirect } from 'next/navigation'
+import { PartyIcon } from '@/components/ui/AppIcons'
 import { createClient } from '@/lib/supabase/server'
-import OnboardingStep1 from '@/components/guest/OnboardingStep1'
+import GuestApp from '@/components/guest/GuestApp'
 
 // Loads the single active party. In production the party ID could come from
 // an env var (NEXT_PUBLIC_PARTY_ID) or a dynamic route slug.
-export default async function HomePage() {
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>
+}) {
+  const resolvedSearchParams = await searchParams
+  const params = new URLSearchParams()
+
+  for (const [key, value] of Object.entries(resolvedSearchParams)) {
+    if (Array.isArray(value)) {
+      value.forEach((entry) => params.append(key, entry))
+    } else if (value) {
+      params.set(key, value)
+    }
+  }
+
+  if (params.has('code')) {
+    if (!params.has('next')) {
+      params.set('next', '/admin/setup/party')
+    }
+
+    redirect(`/auth/callback?${params.toString()}`)
+  }
+
   const supabase = await createClient()
 
   const { data: party } = await supabase
@@ -30,7 +55,7 @@ export default async function HomePage() {
           color: '#fff',
         }}
       >
-        <p style={{ fontSize: '48px' }}>🎉</p>
+        <PartyIcon size={48} />
         <p style={{ fontSize: '20px', fontWeight: 700 }}>No active party found</p>
         <p style={{ color: '#888', fontSize: '14px' }}>
           Ask the host to set up the party first.
@@ -39,11 +64,19 @@ export default async function HomePage() {
     )
   }
 
-  const { data: guests } = await supabase
-    .from('guests')
-    .select('*')
-    .eq('party_id', party.id)
-    .order('name')
+  const [{ data: guests }, { data: drinks }] = await Promise.all([
+    supabase
+      .from('guests')
+      .select('*')
+      .eq('party_id', party.id)
+      .order('name'),
+    supabase
+      .from('drinks')
+      .select('*')
+      .eq('party_id', party.id)
+      .eq('is_available', true)
+      .order('display_order'),
+  ])
 
-  return <OnboardingStep1 party={party} guests={guests ?? []} />
+  return <GuestApp party={party} guests={guests ?? []} drinks={drinks ?? []} />
 }

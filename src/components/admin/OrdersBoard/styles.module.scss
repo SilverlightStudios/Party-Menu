@@ -1,4 +1,5 @@
 @use '@/styles/variables' as *;
+@use '@/styles/glass' as glass;
 
 .page {
   max-width: 800px;
@@ -9,6 +10,9 @@
 }
 
 .title {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-3;
   font-size: $font-size-2xl;
   font-weight: 700;
 }
@@ -26,10 +30,8 @@
 }
 
 .stat {
+  @include glass.liquid-glass-panel($radius-md);
   flex: 1;
-  background: $color-surface;
-  border: 1px solid $color-border;
-  border-radius: $radius-md;
   padding: $space-4;
   text-align: center;
 }
@@ -62,19 +64,13 @@
 }
 
 .filterBtn {
+  @include glass.liquid-glass-button($radius-full);
   padding: $space-2 $space-4;
-  border-radius: $radius-full;
   font-size: $font-size-sm;
-  font-weight: 500;
-  border: 1.5px solid $color-border;
-  background: transparent;
+  font-weight: 700;
   color: $color-text-secondary;
-  cursor: pointer;
-  transition: all $transition-fast;
 
   &.active {
-    background: $color-accent;
-    border-color: $color-accent;
     color: #fff;
   }
 }
@@ -96,5 +92,5 @@
 
 .link {
   color: $color-accent;
-  font-weight: 600;
+  font-weight: 700;
 }

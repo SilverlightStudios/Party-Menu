@@ -1,6 +1,14 @@
 'use client'
 
 import { createClient } from '@/lib/supabase/client'
+import { useHaptics } from '@/hooks/useHaptics'
+import {
+  DrinkIcon,
+  PendingIcon,
+  SparklesIcon,
+  SuccessIcon,
+} from '@/components/ui/AppIcons'
+import AvatarBadge from '@/components/ui/AvatarBadge'
 import type { Order } from '@/lib/supabase/types'
 import styles from './styles.module.scss'
 
@@ -14,21 +22,20 @@ function formatTime(ts: string) {
   return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 }
 
-function getInitials(name: string) {
-  return name.split(' ').map((w) => w[0]).slice(0, 2).join('').toUpperCase()
-}
-
 export default function OrderFeed({ orders, onFulfill }: Props) {
+  const { trigger } = useHaptics()
+
   async function handleFulfill(orderId: string) {
     const supabase = createClient()
     await supabase.from('orders').update({ status: 'fulfilled' }).eq('id', orderId)
+    trigger('success')
     onFulfill?.(orderId)
   }
 
   if (orders.length === 0) {
     return (
       <div className={styles.emptyState}>
-        <span className={styles.emptyEmoji}>🍹</span>
+        <DrinkIcon className={styles.emptyEmoji} size={56} />
         <p className={styles.emptyText}>No orders yet</p>
         <p className={styles.emptySubtext}>Guests will appear here when they order</p>
       </div>
@@ -42,29 +49,44 @@ export default function OrderFeed({ orders, onFulfill }: Props) {
           key={order.id}
           className={`${styles.card} ${order.status === 'fulfilled' ? styles.fulfilled : ''}`}
         >
-          <div className={styles.guestAvatar}>
-            {order.guest?.photo_url ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={order.guest.photo_url} alt={order.guest.name} />
-            ) : (
-              getInitials(order.guest?.name ?? '?')
-            )}
-          </div>
+          <AvatarBadge
+            name={order.guest?.name ?? '?'}
+            photoUrl={order.guest?.photo_url}
+            seed={order.guest?.id ?? order.guest?.name ?? order.id}
+            className={styles.guestAvatar}
+          />
 
           <div className={styles.cardBody}>
             <p className={styles.guestName}>{order.guest?.name}</p>
             <p className={styles.drinkName}>
-              {order.drink?.name ?? '✨ Custom request'}
+              {order.drink?.name ?? (
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                  <SparklesIcon size={16} />
+                  <span>Custom request</span>
+                </span>
+              )}
             </p>
             {order.custom_request && (
-              <p className={styles.customRequest}>"{order.custom_request}"</p>
+              <p className={styles.customRequest}>
+                &quot;{order.custom_request}&quot;
+              </p>
             )}
             <p className={styles.time}>{formatTime(order.created_at)}</p>
           </div>
 
           <div className={styles.cardActions}>
             <span className={`${styles.statusBadge} ${styles[order.status]}`}>
-              {order.status === 'pending' ? '⏳ Pending' : '✅ Done'}
+              {order.status === 'pending' ? (
+                <>
+                  <PendingIcon size={12} />
+                  <span>Pending</span>
+                </>
+              ) : (
+                <>
+                  <SuccessIcon size={12} />
+                  <span>Done</span>
+                </>
+              )}
             </span>
             {order.status === 'pending' && (
               <button

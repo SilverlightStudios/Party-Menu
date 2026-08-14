@@ -1,6 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { CloseIcon, GuestsIcon } from '@/components/ui/AppIcons'
+import AvatarBadge from '@/components/ui/AvatarBadge'
 import { createClient } from '@/lib/supabase/client'
 import type { Guest, Party } from '@/lib/supabase/types'
 import styles from './styles.module.scss'
@@ -71,7 +73,10 @@ export default function GuestListManager({ party, guests: initialGuests }: Props
   return (
     <div className={styles.page}>
       <div className={styles.header}>
-        <h1 className={styles.title}>👥 Guest List</h1>
+        <h1 className={styles.title}>
+          <GuestsIcon size={26} />
+          <span>Guest List</span>
+        </h1>
         <p className={styles.subtitle}>{guests.length} guests for {party.name}</p>
       </div>
 
@@ -118,17 +123,19 @@ export default function GuestListManager({ party, guests: initialGuests }: Props
         {guests.map((guest) => (
           <div key={guest.id} className={styles.guestRow}>
             <div className={styles.guestInfo}>
-              {guest.photo_url && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img className={styles.avatar} src={guest.photo_url} alt={guest.name} />
-              )}
+              <AvatarBadge
+                name={guest.name}
+                photoUrl={guest.photo_url}
+                seed={guest.id}
+                className={styles.avatar}
+              />
               <span className={styles.guestName}>{guest.name}</span>
             </div>
             <button
               className={styles.removeBtn}
               onClick={() => handleRemove(guest.id)}
             >
-              ✕
+              <CloseIcon size={14} />
             </button>
           </div>
         ))}

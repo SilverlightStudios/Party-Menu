@@ -1,13 +1,12 @@
 @use '@/styles/variables' as *;
+@use '@/styles/glass' as glass;
 
 .wrapper {
+  @include glass.liquid-glass-panel($radius-lg);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: $space-4 $space-6;
-  background: $color-surface;
-  border: 1px solid $color-border;
-  border-radius: $radius-lg;
   margin: $space-4 $space-4 0;
 }
 
@@ -18,8 +17,11 @@
 }
 
 .label {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
   font-size: $font-size-base;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .sublabel {
@@ -28,25 +30,16 @@
 }
 
 .button {
+  @include glass.liquid-glass-button($radius-full);
   padding: $space-2 $space-5;
-  border-radius: $radius-full;
   font-size: $font-size-sm;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  transition: background $transition-fast;
+  font-weight: 700;
 
   &.active {
-    background: $color-success;
     color: #fff;
   }
 
   &.inactive {
-    background: $color-accent;
     color: #fff;
-  }
-
-  &:disabled {
-    opacity: 0.5;
   }
 }

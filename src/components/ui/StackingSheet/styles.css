@@ -1,0 +1,61 @@
+/* ============================================================================
+   StackingSheet — View
+   ============================================================================ */
+
+.StackingSheet-layerView {
+  z-index: 1;
+  height: calc(var(--silk-100-lvh-dvh-pct) + 60px);
+}
+
+/* ============================================================================
+   StackingSheet — Content
+   ============================================================================ */
+
+.StackingSheet-layerContent {
+  box-sizing: border-box;
+  height: auto;
+  min-height: 100px;
+}
+
+/* ============================================================================
+   StackingSheet — BleedingBackground
+   Glass panel that bleeds out in the dismiss direction during swipe overshoot.
+   backdrop-filter is applied via inline style (bypasses PostCSS autoprefixer).
+   ============================================================================ */
+
+.StackingSheet-layerBleedingBackground {
+  pointer-events: none;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background-color: transparent;
+  background-image:
+    var(--glass-highlight-primary),
+    var(--glass-highlight-secondary),
+    var(--glass-reflection-gradient),
+    var(--glass-gloss-gradient),
+    var(--glass-fill-gradient-strong);
+  box-shadow:
+    0 24px 56px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.38),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* ============================================================================
+   StackingSheet — Handle
+   ============================================================================ */
+
+.StackingSheet-layerHandle {
+  display: block;
+  align-self: center;
+  width: 36px;
+  height: 4px;
+  margin-top: 4px;
+  margin-inline: auto;
+  border: 0;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.28);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.2),
+    0 8px 20px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+}

@@ -15,6 +15,9 @@ export interface Party {
   host_id: string
   is_active: boolean
   created_at: string
+  theme_color1: string
+  theme_color2: string
+  theme_color3: string
 }
 
 export interface Guest {
@@ -30,7 +33,11 @@ export interface Drink {
   party_id: string
   name: string
   description: string | null
+  pdp_description: string | null
+  ingredients: string[]
+  fun_fact: string | null
   photo_url: string | null
+  source_url: string | null
   is_available: boolean
   display_order: number
 }
@@ -81,6 +88,9 @@ export type Database = {
           host_id: string
           is_active?: boolean
           created_at?: string
+          theme_color1?: string
+          theme_color2?: string
+          theme_color3?: string
         }
         Update: {
           id?: string
@@ -89,6 +99,9 @@ export type Database = {
           host_id?: string
           is_active?: boolean
           created_at?: string
+          theme_color1?: string
+          theme_color2?: string
+          theme_color3?: string
         }
         Relationships: []
       }
@@ -117,7 +130,11 @@ export type Database = {
           party_id: string
           name: string
           description?: string | null
+          pdp_description?: string | null
+          ingredients?: string[]
+          fun_fact?: string | null
           photo_url?: string | null
+          source_url?: string | null
           is_available?: boolean
           display_order?: number
         }
@@ -126,7 +143,11 @@ export type Database = {
           party_id?: string
           name?: string
           description?: string | null
+          pdp_description?: string | null
+          ingredients?: string[]
+          fun_fact?: string | null
           photo_url?: string | null
+          source_url?: string | null
           is_available?: boolean
           display_order?: number
         }

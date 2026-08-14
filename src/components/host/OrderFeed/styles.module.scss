@@ -1,4 +1,5 @@
 @use '@/styles/variables' as *;
+@use '@/styles/glass' as glass;
 
 .feed {
   display: flex;
@@ -23,7 +24,7 @@
 
 .emptyText {
   font-size: $font-size-md;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .emptySubtext {
@@ -32,14 +33,11 @@
 }
 
 .card {
-  background: $color-surface;
-  border: 1px solid $color-border;
-  border-radius: $radius-lg;
+  @include glass.liquid-glass-card($radius-lg);
   padding: $space-4;
   display: flex;
   gap: $space-4;
   align-items: flex-start;
-  transition: border-color $transition-fast;
 
   &.fulfilled {
     opacity: 0.5;
@@ -49,8 +47,7 @@
 .guestAvatar {
   width: 44px;
   height: 44px;
-  border-radius: $radius-full;
-  background: $color-surface-raised;
+  @include glass.liquid-glass-avatar;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -74,7 +71,7 @@
 
 .guestName {
   font-size: $font-size-sm;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .drinkName {
@@ -105,34 +102,28 @@
 }
 
 .statusBadge {
+  @include glass.liquid-glass-surface($radius-full, 14px, 0.14, 0.1, 0.32);
+  display: inline-flex;
+  align-items: center;
+  gap: $space-1;
   font-size: $font-size-xs;
-  font-weight: 600;
+  font-weight: 700;
   padding: $space-1 $space-3;
-  border-radius: $radius-full;
 
   &.pending {
-    background: rgba($color-warning, 0.15);
     color: $color-warning;
   }
 
   &.fulfilled {
-    background: rgba($color-success, 0.15);
     color: $color-success;
   }
 }
 
 .fulfillButton {
+  @include glass.liquid-glass-button($radius-md);
   font-size: $font-size-xs;
-  font-weight: 600;
+  font-weight: 700;
   padding: $space-2 $space-3;
-  background: $color-accent;
   color: #fff;
-  border: none;
-  border-radius: $radius-md;
-  cursor: pointer;
   white-space: nowrap;
-
-  &:disabled {
-    opacity: 0.5;
-  }
 }

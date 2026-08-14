@@ -1,23 +1,21 @@
 @use '@/styles/variables' as *;
+@use '@/styles/glass' as glass;
 
 .card {
-  background: $color-surface;
-  border: 1px solid $color-border;
-  border-radius: $radius-lg;
+  @include glass.liquid-glass-card($radius-lg);
   overflow: hidden;
   cursor: pointer;
-  transition: transform $transition-fast, border-color $transition-fast;
   -webkit-tap-highlight-color: transparent;
 
   &:active {
     transform: scale(0.97);
-    border-color: $color-accent;
+    border-color: var(--theme-1, $color-accent);
   }
 }
 
 .imageWrapper {
   aspect-ratio: 4 / 3;
-  background: $color-surface-raised;
+  @include glass.liquid-glass-surface(0, 14px, 0.08, 0.1, 0.12);
   overflow: hidden;
   position: relative;
 }
@@ -43,7 +41,7 @@
 
 .name {
   font-size: $font-size-base;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.3;
 }
 

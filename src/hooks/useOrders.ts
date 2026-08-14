@@ -63,6 +63,18 @@ export function useOrders(partyId: string | null) {
           )
         }
       )
+      .on(
+        'postgres_changes',
+        {
+          event: 'DELETE',
+          schema: 'public',
+          table: 'orders',
+          filter: `party_id=eq.${partyId}`,
+        },
+        (payload) => {
+          setOrders((prev) => prev.filter((order) => order.id !== payload.old.id))
+        }
+      )
       .subscribe()
 
     return () => {

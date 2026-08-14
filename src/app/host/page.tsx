@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation'
+import { PartyIcon } from '@/components/ui/AppIcons'
 import { createClient } from '@/lib/supabase/server'
 import HostDashboard from '@/components/host/HostDashboard'
 
@@ -33,7 +34,7 @@ export default async function HostPage() {
           color: '#fff',
         }}
       >
-        <p style={{ fontSize: '48px' }}>🎉</p>
+        <PartyIcon size={48} />
         <p style={{ fontSize: '20px', fontWeight: 700 }}>No active party</p>
         <a href="/admin/setup/party" style={{ color: '#ff4d6d', fontSize: '14px' }}>
           Set up your party →

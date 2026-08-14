@@ -1,10 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { PartyIcon } from '@/components/ui/AppIcons'
 import { useOrders } from '@/hooks/useOrders'
 import OrderFeed from '@/components/host/OrderFeed'
 import NotificationToggle from '@/components/host/NotificationToggle'
-import type { Party, Order } from '@/lib/supabase/types'
+import type { Party } from '@/lib/supabase/types'
 import styles from './styles.module.scss'
 
 interface Props {
@@ -13,22 +13,16 @@ interface Props {
 
 export default function HostDashboard({ party }: Props) {
   const { orders, isLoading } = useOrders(party.id)
-  const [localOrders, setLocalOrders] = useState<Order[]>([])
-
-  const displayOrders = orders.length > 0 ? orders : localOrders
-  const pendingCount = displayOrders.filter((o) => o.status === 'pending').length
-
-  function handleFulfill(orderId: string) {
-    setLocalOrders((prev) =>
-      prev.map((o) => (o.id === orderId ? { ...o, status: 'fulfilled' as const } : o))
-    )
-  }
+  const pendingCount = orders.filter((o) => o.status === 'pending').length
 
   return (
     <div className={styles.page}>
       <div className={styles.header}>
         <div className={styles.headerText}>
-          <h1 className={styles.title}>🎉 {party.name}</h1>
+          <h1 className={styles.title}>
+            <PartyIcon size={24} />
+            <span>{party.name}</span>
+          </h1>
           <p className={styles.subtitle}>
             {isLoading
               ? 'Loading...'
@@ -49,7 +43,7 @@ export default function HostDashboard({ party }: Props) {
         {isLoading ? (
           <div className={styles.loading}>Loading orders...</div>
         ) : (
-          <OrderFeed orders={displayOrders} onFulfill={handleFulfill} />
+          <OrderFeed orders={orders} />
         )}
       </div>
     </div>

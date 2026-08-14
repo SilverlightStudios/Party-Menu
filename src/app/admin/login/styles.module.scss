@@ -1,4 +1,5 @@
 @use '@/styles/variables' as *;
+@use '@/styles/glass' as glass;
 
 .page {
   display: flex;
@@ -12,9 +13,7 @@
 .card {
   width: 100%;
   max-width: 400px;
-  background: $color-surface;
-  border: 1px solid $color-border;
-  border-radius: $radius-xl;
+  @include glass.liquid-glass-panel($radius-xl);
   padding: $space-8 $space-6;
   display: flex;
   flex-direction: column;
@@ -24,7 +23,8 @@
 }
 
 .emoji {
-  font-size: 48px;
+  color: #fff;
+  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.28));
 }
 
 .title {
@@ -40,18 +40,12 @@
 
 .input {
   width: 100%;
+  @include glass.liquid-glass-input($radius-md);
   padding: $space-4;
-  background: $color-surface-raised;
-  border: 1.5px solid $color-border;
-  border-radius: $radius-md;
   color: $color-text-primary;
   font-size: $font-size-base;
   outline: none;
   text-align: center;
-
-  &:focus {
-    border-color: $color-accent;
-  }
 
   &::placeholder {
     color: $color-text-secondary;
@@ -60,18 +54,11 @@
 
 .button {
   width: 100%;
+  @include glass.liquid-glass-button($radius-lg);
   padding: $space-4;
-  background: $color-accent;
   color: #fff;
   font-size: $font-size-base;
-  font-weight: 600;
-  border: none;
-  border-radius: $radius-lg;
-  cursor: pointer;
-
-  &:disabled {
-    opacity: 0.5;
-  }
+  font-weight: 700;
 }
 
 .error {
@@ -88,7 +75,8 @@
 }
 
 .sentEmoji {
-  font-size: 48px;
+  color: #fff;
+  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.28));
 }
 
 .sentText {

@@ -1,4 +1,5 @@
 @use '@/styles/variables' as *;
+@use '@/styles/glass' as glass;
 
 .page {
   max-width: 600px;
@@ -9,6 +10,9 @@
 }
 
 .title {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-3;
   font-size: $font-size-2xl;
   font-weight: 700;
 }
@@ -33,17 +37,11 @@
 
 .input {
   flex: 1;
+  @include glass.liquid-glass-input($radius-md);
   padding: $space-3 $space-4;
-  background: $color-surface;
-  border: 1.5px solid $color-border;
-  border-radius: $radius-md;
   color: $color-text-primary;
   font-size: $font-size-base;
   outline: none;
-
-  &:focus {
-    border-color: $color-accent;
-  }
 
   &::placeholder {
     color: $color-text-secondary;
@@ -52,34 +50,21 @@
 
 .textarea {
   width: 100%;
+  @include glass.liquid-glass-input($radius-md);
   padding: $space-3 $space-4;
-  background: $color-surface;
-  border: 1.5px solid $color-border;
-  border-radius: $radius-md;
   color: $color-text-primary;
   font-size: $font-size-base;
   outline: none;
   resize: vertical;
   font-family: inherit;
-
-  &:focus {
-    border-color: $color-accent;
-  }
 }
 
 .addBtn {
+  @include glass.liquid-glass-button($radius-md);
   padding: $space-3 $space-5;
-  background: $color-accent;
   color: #fff;
   font-size: $font-size-base;
-  font-weight: 600;
-  border: none;
-  border-radius: $radius-md;
-  cursor: pointer;
-
-  &:disabled {
-    opacity: 0.5;
-  }
+  font-weight: 700;
 }
 
 .bulkToggle {
@@ -109,13 +94,12 @@
 }
 
 .guestRow {
+  @include glass.liquid-glass-card($radius-md);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: $space-3 $space-4;
-  background: $color-surface;
-  border: 1px solid $color-border;
-  border-radius: $radius-md;
+  min-height: 64px;
+  padding: $space-4;
 }
 
 .guestInfo {
@@ -127,33 +111,30 @@
 .avatar {
   width: 32px;
   height: 32px;
-  border-radius: $radius-full;
+  @include glass.liquid-glass-avatar;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-sm;
+  font-weight: 700;
+  color: $color-text-primary;
   object-fit: cover;
 }
 
 .guestName {
   font-size: $font-size-base;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .removeBtn {
   width: 28px;
   height: 28px;
-  border-radius: $radius-full;
-  background: $color-surface-raised;
-  border: 1px solid $color-border;
+  @include glass.liquid-glass-button($radius-full);
   color: $color-text-secondary;
   font-size: $font-size-sm;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  &:hover {
-    background: rgba($color-accent, 0.15);
-    border-color: $color-accent;
-    color: $color-accent;
-  }
 }
 
 .emptyText {
@@ -173,5 +154,5 @@
 
 .link {
   color: $color-accent;
-  font-weight: 600;
+  font-weight: 700;
 }

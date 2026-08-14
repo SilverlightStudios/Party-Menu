@@ -1,0 +1,456 @@
+@use '@/styles/variables' as *;
+@use '@/styles/glass' as glass;
+
+// ============================================================================
+// Main container (lives inside SheetStack.Outlet)
+// ============================================================================
+
+.mainContainer {
+  position: relative;
+  min-height: 100dvh;
+  background: transparent;
+  overflow: hidden;
+}
+
+.mainViewWrapper {
+  min-height: 100dvh;
+}
+
+.placeholder {
+  min-height: 100dvh;
+}
+
+.loadingShell {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+  padding: calc(env(safe-area-inset-top) + #{$space-6}) $space-6 max($space-8, env(safe-area-inset-bottom));
+  animation: loadingShellEnter 180ms ease-out both;
+}
+
+.loadingTopBar,
+.loadingProfile,
+.loadingActions {
+  display: flex;
+}
+
+.loadingTopBar {
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-4;
+}
+
+.loadingProfile {
+  flex-direction: column;
+  align-items: center;
+  gap: $space-4;
+  padding: $space-6 0 $space-2;
+}
+
+.loadingActions {
+  flex-direction: column;
+  gap: $space-4;
+  margin-top: auto;
+}
+
+.loadingTopLine,
+.loadingTopChip,
+.loadingAvatar,
+.loadingName,
+.loadingCaption,
+.loadingActionCard {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.08));
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.15s linear infinite;
+}
+
+.loadingTopLine,
+.loadingName,
+.loadingCaption,
+.loadingActionCard {
+  @include glass.liquid-glass-card($radius-xl);
+}
+
+.loadingTopLine {
+  width: 96px;
+  height: 16px;
+}
+
+.loadingTopChip {
+  @include glass.liquid-glass-button($radius-full);
+  min-width: 120px;
+  height: 34px;
+  padding: 0 $space-4;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: $font-size-sm;
+  font-weight: 700;
+}
+
+.loadingAvatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 999px;
+  @include glass.liquid-glass-avatar;
+}
+
+.loadingName {
+  width: min(220px, 72vw);
+  height: 24px;
+}
+
+.loadingCaption {
+  width: min(280px, 82vw);
+  height: 14px;
+}
+
+.loadingActionCard {
+  min-height: 84px;
+}
+
+.loadingLabel {
+  margin: 0;
+  text-align: center;
+  color: $color-text-secondary;
+  font-size: $font-size-sm;
+  font-weight: 600;
+}
+
+// ============================================================================
+// Welcome Sheet (full-screen, side-swipe)
+// ============================================================================
+
+.welcomeSheet {
+  width: 100vw;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.welcomeView {
+  z-index: 20;
+}
+
+.welcomeViewClosing {
+  pointer-events: none;
+
+  .welcomeSheetBg {
+    animation: welcomeSheetBgDismiss 320ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .welcomeSheetFrame {
+    animation: welcomeSheetDismiss 320ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+}
+
+.welcomeSheetBg,
+.pickerSheetBg {
+  pointer-events: none;
+  background-color: rgba(8, 8, 12, 0.28);
+  background-image:
+    radial-gradient(circle at 18% 10%, var(--theme-1, #ff9ffc) 0%, transparent 34%),
+    radial-gradient(circle at 82% 0%, var(--theme-2, #5227ff) 0%, transparent 38%),
+    radial-gradient(circle at 50% 100%, var(--theme-3, #b19eef) 0%, transparent 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 100%);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+}
+
+.welcomeSheetFrame {
+  flex: 1;
+  min-height: 100dvh;
+  position: relative;
+  z-index: 1;
+  display: flex;
+}
+
+.welcomeContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $space-8 $space-6;
+  gap: $space-8;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.welcomeEmoji {
+  font-size: 64px;
+  line-height: 1;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes loadingShellEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes skeletonShimmer {
+  from {
+    background-position: 200% 0;
+  }
+
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes welcomeSheetDismiss {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(112%) scale(0.985);
+  }
+}
+
+@keyframes welcomeSheetBgDismiss {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(96%);
+  }
+}
+
+.welcomeMessage {
+  font-size: $font-size-2xl;
+  font-weight: 700;
+  color: $color-text-primary;
+  line-height: 1.2;
+}
+
+.welcomeSubtitle {
+  font-size: $font-size-base;
+  color: $color-text-secondary;
+  margin-top: -$space-4;
+}
+
+.findButton {
+  width: 100%;
+  @include glass.liquid-glass-button($radius-xl);
+  padding: $space-5 $space-6;
+  color: #fff;
+  font-size: $font-size-md;
+  font-weight: 700;
+  -webkit-tap-highlight-color: transparent;
+}
+
+// ============================================================================
+// Guest Picker Sheet (full-screen, side-swipe)
+// ============================================================================
+
+.pickerSheet {
+  width: 100vw;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.pickerView {
+  z-index: 30;
+}
+
+.pickerSheetFrame {
+  flex: 1;
+  min-height: 100dvh;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.pickerContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+  padding-top: env(safe-area-inset-top);
+}
+
+.pickerHeader {
+  padding: $space-6 $space-6 $space-4;
+  border-bottom: 1px solid $color-border;
+}
+
+.pickerTitle {
+  font-size: $font-size-lg;
+  font-weight: 700;
+}
+
+.searchInput {
+  width: 100%;
+  @include glass.liquid-glass-input($radius-full);
+  padding: $space-3 $space-4;
+  margin-top: $space-4;
+  color: $color-text-primary;
+  font-size: $font-size-base;
+  outline: none;
+
+  &::placeholder {
+    color: $color-text-secondary;
+  }
+}
+
+.guestList {
+  flex: 1;
+  min-height: 0;
+}
+
+.guestListContent {
+  padding: $space-3 $space-4;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.guestItem {
+  @include glass.liquid-glass-card($radius-md);
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  min-height: 80px;
+  padding: $space-4 $space-5;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.guestAvatar {
+  width: 44px;
+  height: 44px;
+  @include glass.liquid-glass-avatar;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-lg;
+  font-weight: 700;
+  color: $color-text-primary;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.guestName {
+  font-size: $font-size-base;
+  font-weight: 700;
+}
+
+.emptyText {
+  color: $color-text-secondary;
+  text-align: center;
+  padding: $space-4;
+}
+
+.stickyBottom {
+  padding: $space-4 $space-6;
+  padding-bottom: max($space-4, env(safe-area-inset-bottom));
+  border-top: 1px solid $color-border;
+  background:
+    var(--glass-gloss-gradient),
+    var(--glass-fill-gradient-soft);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+}
+
+.addSelfButton {
+  width: 100%;
+  @include glass.liquid-glass-button($radius-xl);
+  padding: $space-4 $space-5;
+  color: $color-text-secondary;
+  font-size: $font-size-sm;
+  font-weight: 700;
+}
+
+// ============================================================================
+// Add Name Modal (nested inside picker sheet)
+// ============================================================================
+
+.addModalView {
+  z-index: 40; // above pickerView (z-index: 30)
+}
+
+.addModalContent {
+  padding: $space-6;
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  position: relative;
+  z-index: 1;
+}
+
+.modalTitle {
+  font-size: $font-size-md;
+  font-weight: 700;
+}
+
+.nameInput {
+  width: 100%;
+  @include glass.liquid-glass-input($radius-md);
+  padding: $space-4;
+  color: $color-text-primary;
+  font-size: $font-size-base;
+  outline: none;
+}
+
+.modalActions {
+  display: flex;
+  gap: $space-3;
+}
+
+.cancelBtn {
+  flex: 1;
+  @include glass.liquid-glass-button($radius-lg);
+  padding: $space-4;
+  color: $color-text-secondary;
+  font-size: $font-size-base;
+}
+
+.submitBtn {
+  flex: 2;
+  @include glass.liquid-glass-button($radius-lg);
+  padding: $space-4;
+  color: #fff;
+  font-size: $font-size-base;
+  font-weight: 700;
+}

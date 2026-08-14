@@ -1,10 +1,13 @@
 @use '@/styles/variables' as *;
+@use '@/styles/glass' as glass;
 
 .container {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
-  background: $color-bg;
+  background: transparent;
   padding-top: env(safe-area-inset-top);
 }
 
@@ -15,22 +18,9 @@
   gap: $space-4;
 }
 
-.backButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: $radius-full;
-  background: $color-surface;
-  border: 1px solid $color-border;
-  color: $color-text-primary;
-  font-size: $font-size-lg;
-}
-
 .greeting {
   font-size: $font-size-md;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .profileSection {
@@ -43,6 +33,7 @@
 
 .avatarWrapper {
   position: relative;
+  display: block;
   width: 120px;
   height: 120px;
   cursor: pointer;
@@ -51,9 +42,8 @@
 .avatar {
   width: 120px;
   height: 120px;
-  border-radius: $radius-full;
-  background: $color-surface;
-  border: 2px solid $color-border;
+  @include glass.liquid-glass-avatar;
+  border-width: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -61,7 +51,7 @@
   transition: border-color $transition-fast;
 
   &:hover {
-    border-color: $color-accent;
+    border-color: var(--theme-1, $color-accent);
   }
 
   img {
@@ -74,7 +64,7 @@
 .avatarInitials {
   font-size: $font-size-3xl;
   font-weight: 700;
-  color: $color-accent;
+  color: $color-text-primary;
 }
 
 .avatarOverlay {
@@ -83,8 +73,7 @@
   right: 0;
   width: 36px;
   height: 36px;
-  background: $color-accent;
-  border-radius: $radius-full;
+  @include glass.liquid-glass-button($radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -113,84 +102,89 @@
 
 .primaryAction {
   width: 100%;
+  @include glass.liquid-glass-button($radius-xl);
   padding: $space-5 $space-6;
-  background: $color-accent;
   color: #fff;
   font-size: $font-size-md;
-  font-weight: 600;
-  border-radius: $radius-xl;
-  border: none;
-  cursor: pointer;
-  transition: background $transition-fast, transform $transition-fast;
+  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: $space-3;
-
-  &:active {
-    background: $color-accent-hover;
-    transform: scale(0.98);
-  }
 }
 
 .secondaryAction {
   width: 100%;
+  @include glass.liquid-glass-button($radius-xl);
   padding: $space-5 $space-6;
-  background: $color-surface;
   color: $color-text-primary;
   font-size: $font-size-md;
-  font-weight: 600;
-  border-radius: $radius-xl;
-  border: 1.5px solid $color-border;
-  cursor: pointer;
-  transition: border-color $transition-fast, background $transition-fast;
+  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: $space-3;
-
-  &:active {
-    border-color: $color-accent;
-    background: $color-surface-raised;
-  }
 }
 
-// Poke sheet
-.pokeSheetOverlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: $z-modal;
+.drinksSheetContent {
+  max-height: 84dvh;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
 }
 
-.pokeSheet {
-  width: 100%;
-  background: $color-surface;
-  border-radius: $radius-xl $radius-xl 0 0;
-  padding-bottom: env(safe-area-inset-bottom);
-  max-height: 70dvh;
+.drinksSheetFrame {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  flex-direction: column;
+}
+
+.drinksSheetHeader {
+  padding: $space-4 $space-6 $space-3;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.drinksSheetTitle {
+  font-size: $font-size-lg;
+  font-weight: 700;
+}
+
+.drinksSheetSubtitle {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  margin-top: $space-1;
+}
+
+.drinksSheetBody {
+  flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
 }
 
-.pokeSheetHandle {
-  width: 36px;
-  height: 4px;
-  background: $color-border;
-  border-radius: $radius-full;
-  margin: $space-3 auto;
+// Poke sheet content (inside Silk sheet)
+.pokeSheetContent {
+  max-height: 70dvh;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .pokeSheetTitle {
   font-size: $font-size-md;
-  font-weight: 600;
+  font-weight: 700;
   padding: $space-3 $space-6 $space-4;
 }
 
 .pokeList {
-  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
+
+.pokeListContent {
   padding: 0 $space-4 $space-4;
   display: flex;
   flex-direction: column;
@@ -198,13 +192,11 @@
 }
 
 .pokeItem {
+  @include glass.liquid-glass-card($radius-md);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: $space-4;
-  background: $color-surface-raised;
-  border-radius: $radius-md;
-  border: 1px solid $color-border;
 }
 
 .pokeGuestInfo {
@@ -216,14 +208,13 @@
 .pokeGuestAvatar {
   width: 40px;
   height: 40px;
-  border-radius: $radius-full;
-  background: $color-bg;
+  @include glass.liquid-glass-avatar;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: $font-size-base;
-  font-weight: 600;
-  color: $color-accent;
+  font-weight: 700;
+  color: $color-text-primary;
   overflow: hidden;
   flex-shrink: 0;
 
@@ -236,52 +227,119 @@
 
 .pokeGuestName {
   font-size: $font-size-base;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .pokeButton {
+  @include glass.liquid-glass-button($radius-full);
   font-size: 22px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: transform $transition-fast;
-
-  &:active {
-    transform: rotate(15deg) scale(1.2);
-  }
+  width: 40px;
+  height: 40px;
+  padding: 0;
 }
 
-// Poke received toast
-.pokeToast {
-  position: fixed;
-  top: max($space-6, env(safe-area-inset-top));
-  left: 50%;
-  transform: translateX(-50%);
-  background: $color-surface;
-  border: 1px solid $color-border;
-  border-radius: $radius-xl;
-  padding: $space-4 $space-6;
-  z-index: $z-toast;
+.emptyText {
+  color: $color-text-secondary;
+  text-align: center;
+  padding: $space-4;
+}
+
+// Drink confirmation sheet
+.confirmContent {
+  padding: $space-6;
+  padding-bottom: max($space-8, env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+}
+
+.confirmDrinkInfo {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+}
+
+.confirmDrinkImage {
+  width: 80px;
+  height: 80px;
+  @include glass.liquid-glass-card($radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.confirmDrinkName {
+  font-size: $font-size-lg;
+  font-weight: 700;
+}
+
+.confirmDrinkDesc {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  margin-top: $space-1;
+}
+
+.detailSection {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.detailLabel {
+  font-size: $font-size-xs;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $color-text-secondary;
+}
+
+.detailText {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  line-height: 1.55;
+}
+
+.ingredientsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ingredientChip {
+  @include glass.liquid-glass-card($radius-full);
+  padding: $space-2 $space-3;
+  font-size: $font-size-xs;
+  color: $color-text-primary;
+  line-height: 1.3;
+}
+
+.confirmButton {
+  width: 100%;
+  @include glass.liquid-glass-button($radius-xl);
+  padding: $space-5;
+  color: #fff;
+  font-size: $font-size-md;
+  font-weight: 700;
+}
+
+// Toast content styles
+.toastInner {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: $space-2;
-  box-shadow: $shadow-lg;
-  animation: slideDown 0.3s ease;
-  min-width: 240px;
-  text-align: center;
 }
 
-@keyframes slideDown {
-  from { transform: translateX(-50%) translateY(-20px); opacity: 0; }
-  to { transform: translateX(-50%) translateY(0); opacity: 1; }
-}
-
-.pokeToastEmoji {
+.toastEmoji {
   font-size: 32px;
 }
 
-.pokeToastText {
+.toastText {
   font-size: $font-size-sm;
   color: $color-text-secondary;
 }

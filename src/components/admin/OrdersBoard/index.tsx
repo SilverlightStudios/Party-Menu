@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { OrdersIcon } from '@/components/ui/AppIcons'
 import { useOrders } from '@/hooks/useOrders'
 import OrderFeed from '@/components/host/OrderFeed'
 import type { Party } from '@/lib/supabase/types'
@@ -34,7 +35,10 @@ export default function AdminOrdersView({ party }: Props) {
   return (
     <div className={styles.page}>
       <div className={styles.header}>
-        <h1 className={styles.title}>📋 Live Orders</h1>
+        <h1 className={styles.title}>
+          <OrdersIcon size={26} />
+          <span>Live Orders</span>
+        </h1>
         <p className={styles.subtitle}>{party.name}</p>
       </div>
 

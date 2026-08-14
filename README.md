@@ -44,7 +44,7 @@ NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 
-# Generate with: npx web-push generate-vapid-keys
+# Generate with: pnpm dlx web-push generate-vapid-keys
 NEXT_PUBLIC_VAPID_PUBLIC_KEY=your-vapid-public-key
 VAPID_PRIVATE_KEY=your-vapid-private-key
 VAPID_EMAIL=host@yourparty.com
@@ -53,8 +53,8 @@ VAPID_EMAIL=host@yourparty.com
 ### 3. Run locally
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).

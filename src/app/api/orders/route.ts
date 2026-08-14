@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
           webpush.default.sendNotification(
             { endpoint: sub.endpoint, keys: { p256dh: sub.p256dh, auth: sub.auth } },
             JSON.stringify({
-              title: `🍹 New order from ${guestName}`,
+              title: `New order from ${guestName}`,
               body: drinkLabel,
               tag: orderData.id,
             })
@@ -61,4 +61,37 @@ export async function POST(req: NextRequest) {
   }
 
   return NextResponse.json(order)
+}
+
+export async function DELETE(req: NextRequest) {
+  const supabase = await createAdminClient()
+  const body = await req.json().catch(() => null)
+
+  const orderId = typeof body?.order_id === 'string' ? body.order_id : null
+  const guestId = typeof body?.guest_id === 'string' ? body.guest_id : null
+  const partyId = typeof body?.party_id === 'string' ? body.party_id : null
+
+  if (!orderId || !guestId || !partyId) {
+    return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
+  }
+
+  const { data: deletedOrder, error } = await supabase
+    .from('orders')
+    .delete()
+    .eq('id', orderId)
+    .eq('guest_id', guestId)
+    .eq('party_id', partyId)
+    .eq('status', 'pending')
+    .select('id')
+    .maybeSingle()
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 })
+  }
+
+  if (!deletedOrder) {
+    return NextResponse.json({ error: 'Order not found' }, { status: 404 })
+  }
+
+  return NextResponse.json(deletedOrder)
 }

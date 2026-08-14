@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react'
+import { CloseIcon, DrinkIcon, PhotoIcon } from '@/components/ui/AppIcons'
 import { createClient } from '@/lib/supabase/client'
 import type { Drink, Party } from '@/lib/supabase/types'
 import styles from './styles.module.scss'
@@ -120,7 +121,10 @@ export default function DrinkMenuManager({ party, drinks: initialDrinks }: Props
     <div className={styles.page}>
       <div className={styles.header}>
         <div>
-          <h1 className={styles.title}>🍹 Drink Menu</h1>
+          <h1 className={styles.title}>
+            <DrinkIcon size={26} />
+            <span>Drink Menu</span>
+          </h1>
           <p className={styles.subtitle}>{drinks.length} drinks for {party.name}</p>
         </div>
         <button className={styles.addBtn} onClick={openAdd}>
@@ -159,7 +163,10 @@ export default function DrinkMenuManager({ party, drinks: initialDrinks }: Props
               className={styles.photoPickerBtn}
               onClick={() => fileRef.current?.click()}
             >
-              {photoFile ? `📷 ${photoFile.name}` : '📷 Choose photo'}
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                <PhotoIcon size={16} />
+                <span>{photoFile ? photoFile.name : 'Choose photo'}</span>
+              </span>
             </button>
             <input
               ref={fileRef}
@@ -193,7 +200,7 @@ export default function DrinkMenuManager({ party, drinks: initialDrinks }: Props
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={drink.photo_url} alt={drink.name} />
               ) : (
-                <span>🍹</span>
+                <DrinkIcon size={32} />
               )}
             </div>
             <div className={styles.drinkInfo}>
@@ -210,7 +217,9 @@ export default function DrinkMenuManager({ party, drinks: initialDrinks }: Props
                 {drink.is_available ? 'Available' : 'Hidden'}
               </button>
               <button className={styles.editBtn} onClick={() => openEdit(drink)}>Edit</button>
-              <button className={styles.deleteBtn} onClick={() => handleDelete(drink.id)}>✕</button>
+              <button className={styles.deleteBtn} onClick={() => handleDelete(drink.id)}>
+                <CloseIcon size={14} />
+              </button>
             </div>
           </div>
         ))}
