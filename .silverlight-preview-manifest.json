@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "packageManager": "pnpm",
+  "targets": {
+    "web": {
+      "approved": true,
+      "delivery": "session",
+      "installCommand": "pnpm install --frozen-lockfile",
+      "command": "pnpm run dev -- --hostname 0.0.0.0 --port 3000",
+      "cwd": "."
+    }
+  }
+}
